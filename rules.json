@@ -1,7 +1,8 @@
 {
-  "version": "2026-09-08.1",
+  "version": "2026-09-29.1",
   "badgeTexts": ["广告", "Sponsored", "Ad", "Promoted", "Advertisement"],
   "cardClassHints": ["image-card"],
   "sdkAnchors": ["data-ad-card-root", "data-assistant-ads"],
+  "adFiberKeys": ["ad_cards", "advertiser_brand"],
   "maxDepth": 6
 }
