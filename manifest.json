@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "default_locale": "zh_CN",
   "description": "__MSG_extDesc__",
   "icons": {
@@ -28,9 +28,15 @@
       "js": ["content/rules.js", "content/content.js"],
       "css": ["content/content.css"],
       "run_at": "document_start"
+    },
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content/rules.js", "content/fiber-marker.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
     }
   ],
-  "minimum_chrome_version": "102",
+  "minimum_chrome_version": "111",
   "permissions": ["storage", "alarms"],
   "host_permissions": ["https://raw.githubusercontent.com/*"]
 }

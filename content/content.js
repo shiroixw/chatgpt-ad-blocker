@@ -73,9 +73,10 @@
   function restoreAll() {
     var root = scanRoot();
     if (!root) return;
-    root.querySelectorAll('[data-cb-adhidden], [data-cb-adhidden-sep]').forEach(function (el) {
+    root.querySelectorAll('[data-cb-adhidden], [data-cb-adhidden-sep], [data-cb-ad-fiber]').forEach(function (el) {
       el.removeAttribute('data-cb-adhidden');
       el.removeAttribute('data-cb-adhidden-sep');
+      el.removeAttribute('data-cb-ad-fiber');
     });
     pageCount = 0;
   }
@@ -136,13 +137,31 @@
           hide(findCardFrom(el, false));
         });
       });
+
+      // 3) 新版无标记广告卡：fiber-marker.js（MAIN world）按 React 数据字段打标，
+      //    视觉隐藏由 CSS 直接生效，这里只负责转正为统一标记 + 计数
+      safeQueryAll(root, 'data-cb-ad-fiber').forEach(function (el) {
+        hide(el);
+      });
     });
+  }
+
+  // 把开关与广告字段规则转发给 MAIN world 的 fiber-marker.js（chrome API 不可跨世界）
+  function relayState() {
+    try {
+      window.postMessage({
+        type: 'CBAD_STATE',
+        enabled: enabled,
+        adFiberKeys: rules.adFiberKeys || []
+      }, location.origin);
+    } catch (e) { /* ignore */ }
   }
 
   function applyConfig(cfg) {
     if (cfg.rules && cfg.rules.version) rules = cfg.rules;
     if (typeof cfg.enabled === 'boolean') enabled = cfg.enabled;
     if (cfg.mode === 'clean' || cfg.mode === 'safe') setMode(cfg.mode);
+    relayState();
   }
 
   function loadConfig() {

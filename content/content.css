@@ -7,3 +7,9 @@
 [data-cb-adhidden-sep="1"] {
   display: none !important;
 }
+
+/* 新版无标记广告卡：fiber-marker.js（MAIN world）识别后即刻隐藏，先于 content.js 转正，避免闪烁 */
+[data-cb-ad-fiber="1"] {
+  display: none !important;
+}
+

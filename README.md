@@ -27,6 +27,7 @@ chatgpt-ad-blocker/
 ├── content/
 │   ├── rules.js               # 内置默认规则（纯数据）
 │   ├── content.js             # 识别引擎 + 观察器 + 打标
+│   ├── fiber-marker.js        # 新版无标记广告卡识别（MAIN world，读 React 数据字段）
 │   └── content.css            # 隐藏规则
 ├── popup/                     # 设置面板
 ├── background/
